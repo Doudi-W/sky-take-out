@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.DishMapper">
+    <!--菜品分页查询-->
+    <select id="page" resultType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="name != null and name != ''">
+                name like CONCAT('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId}
+            </if>
+            <if test="status != null ">
+                status = #{status}
+            </if>
+        </where>
+        order by update_time desc
+        <!-- limit #{pageSize} offset #{page} -->
+    </select>
+</mapper>
