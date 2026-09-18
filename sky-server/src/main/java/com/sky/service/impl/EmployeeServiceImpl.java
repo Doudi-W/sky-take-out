@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
@@ -84,8 +85,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // 设置创建人和更新人为当前员工的id
         //TODO 后期需要获取当前员工的id，暂定为10L
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
     }
