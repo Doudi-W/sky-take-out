@@ -11,9 +11,9 @@
             </if>
         </where>
         order by update_time desc
-        <!-- limit #{pageSize} offset #{page} -->
     </select>
 
+    <!--根据id更新员工-->
     <update id="update" parameterType="com.sky.entity.Employee">
         update employee
         <set>
