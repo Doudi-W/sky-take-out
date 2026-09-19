@@ -40,6 +40,11 @@ public class CategoryServiceImpl implements CategoryService {
         return new PageResult(p.getTotal(), p.getResult());
     }
 
+    /**
+     * 根据类型查询分类
+     * @param type
+     * @return
+     */
     @Override
     public List<Category> list(Integer type) {
         return categoryMapper.list(type);
@@ -76,6 +81,17 @@ public class CategoryServiceImpl implements CategoryService {
                 .status(status)
                 .id(id)
                 .build();
+        categoryMapper.update(category);
+    }
+
+    /**
+     * 修改分类
+     * @param categoryDTO
+     */
+    @Override
+    public void update(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO, category);
         categoryMapper.update(category);
     }
 }

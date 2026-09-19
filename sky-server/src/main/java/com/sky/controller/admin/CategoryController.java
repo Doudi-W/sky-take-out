@@ -63,4 +63,11 @@ public class CategoryController {
         categoryService.Status(status, id);
         return Result.success();
     }
+
+    @PutMapping
+    public Result update(@RequestBody CategoryDTO categoryDTO) {
+        log.info("修改分类，参数：{}", categoryDTO);
+        categoryService.update(categoryDTO);
+        return Result.success();
+    }
 }
