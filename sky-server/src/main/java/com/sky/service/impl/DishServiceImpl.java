@@ -7,6 +7,7 @@ import com.sky.entity.Dish;
 import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,9 @@ public class DishServiceImpl implements DishService {
 
         PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
 
-        List<Dish> records = dishMapper.page(dishPageQueryDTO);
+        List<DishVO> records = dishMapper.page(dishPageQueryDTO);
 
-        Page<Dish> p = (Page<Dish>) records;
+        Page<DishVO> p = (Page<DishVO>) records;
 
         return new PageResult(p.getTotal(), p.getResult());
     }

@@ -25,7 +25,6 @@ public class DishController {
      * 分页查询
      *
      */
-    //TODO菜品分类的数据list还没有写category
     @GetMapping("/page")
     public Result page(DishPageQueryDTO dishPageQueryDTO) {
         log.info("分页查询菜品，参数：{}", dishPageQueryDTO);
