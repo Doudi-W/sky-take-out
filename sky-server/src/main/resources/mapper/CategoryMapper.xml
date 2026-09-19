@@ -7,10 +7,10 @@
         select * from category
         <where>
             <if test="name != null and name != ''">
-                name like CONCAT('%', #{name}, '%')
+                and name like CONCAT('%', #{name}, '%')
             </if>
             <if test="type != null">
-                type = #{type}
+                and type = #{type}
             </if>
         </where>
         order by sort asc
