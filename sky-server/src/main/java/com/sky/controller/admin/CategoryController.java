@@ -64,6 +64,10 @@ public class CategoryController {
         return Result.success();
     }
 
+    /**
+     * 修改分类
+     *
+     */
     @PutMapping
     public Result update(@RequestBody CategoryDTO categoryDTO) {
         log.info("修改分类，参数：{}", categoryDTO);

@@ -33,4 +33,20 @@ public class DishServiceImpl implements DishService {
 
         return new PageResult(p.getTotal(), p.getResult());
     }
+
+    /**
+     * 修改菜品状态
+     *
+     * @param status
+     * @param id
+     */
+    @Override
+    public void Status(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+
+        dishMapper.update(dish);
+    }
 }

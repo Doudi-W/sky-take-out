@@ -10,4 +10,6 @@ import java.util.List;
 @Mapper
 public interface DishMapper {
     List<DishVO> page(DishPageQueryDTO dishPageQueryDTO);
+
+    void update(Dish dish);
 }
