@@ -15,4 +15,7 @@ public interface DishMapper {
 
     @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
+
+    @AutoFill(value = OperationType.INSERT)
+    void insert(Dish dish);
 }

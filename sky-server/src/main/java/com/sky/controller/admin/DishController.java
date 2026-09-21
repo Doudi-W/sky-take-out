@@ -42,10 +42,10 @@ public class DishController {
         return Result.success();
     }
 
-    /*@PutMapping
-    public Result update(@RequestBody DishDTO dishDTO) {
-        log.info("修改菜品，参数：{}", dishDTO);
-        dishService.update(dishDTO);
+    @PostMapping
+    public Result save(@RequestBody DishDTO dishDTO) {
+        log.info("新增菜品，参数：{}", dishDTO);
+        dishService.saveWithFlavors(dishDTO);
         return Result.success();
-    }*/
+    }
 }
