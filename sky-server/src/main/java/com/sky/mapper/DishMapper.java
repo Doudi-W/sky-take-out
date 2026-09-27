@@ -28,4 +28,7 @@ public interface DishMapper {
     void deleteById(Long id);
 
     void deleteBatchById(List<Long> ids);
+
+    @Select("select * from dish where category_id = #{categoryId}")
+    List<DishVO> list(Long categoryId);
 }
