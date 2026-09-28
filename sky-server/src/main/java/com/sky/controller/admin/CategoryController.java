@@ -74,4 +74,11 @@ public class CategoryController {
         categoryService.update(categoryDTO);
         return Result.success();
     }
+
+    @DeleteMapping
+    public Result delete(Long id) {
+        log.info("删除分类，参数：{}", id);
+        categoryService.delete(id);
+        return Result.success();
+    }
 }
