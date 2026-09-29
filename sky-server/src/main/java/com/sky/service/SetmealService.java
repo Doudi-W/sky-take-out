@@ -8,4 +8,6 @@ public interface SetmealService {
     PageResult page(SetmealPageQueryDTO setmealPageQueryDTO);
 
     void save(SetmealDTO setmealDTO);
+
+    void status(Integer status, Long id);
 }

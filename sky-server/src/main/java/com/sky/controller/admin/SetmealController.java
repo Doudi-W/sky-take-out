@@ -18,8 +18,8 @@ public class SetmealController {
     @Autowired
     private SetmealService setmealService;
 
-    /**分页查询
-     *
+    /**
+     * 套餐分页查询
      */
     @GetMapping("/page")
     public Result page(SetmealPageQueryDTO setmealPageQueryDTO){
@@ -36,6 +36,16 @@ public class SetmealController {
     public Result save(@RequestBody SetmealDTO setmealDTO){
         log.info("新增套餐，参数：{}", setmealDTO);
         setmealService.save(setmealDTO);
+        return Result.success();
+    }
+
+    /**
+     * 套餐状态修改
+     */
+    @PostMapping("/status/{status}")
+    public Result status(@PathVariable Integer status, Long id){
+        log.info("修改套餐状态，参数：{}，{}", status, id);
+        setmealService.status(status, id);
         return Result.success();
     }
 }
