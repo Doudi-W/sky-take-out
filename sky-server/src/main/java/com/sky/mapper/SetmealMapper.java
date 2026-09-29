@@ -27,9 +27,25 @@ public interface SetmealMapper {
     @AutoFill(value = OperationType.INSERT)
     void insert(Setmeal setmeal);
 
+    /**
+     * 根据分类id查询套餐数量
+     * @param categoryId
+     * @return
+     */
     @Select("select count(*) from setmeal where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
 
+    /**
+     * 根据id修改套餐
+     * @param setmeal
+     */
     @AutoFill(value = OperationType.UPDATE)
     void update(Setmeal setmeal);
+
+    /**
+     * 根据id查询套餐
+     * @param id
+     */
+    @Select("select * from setmeal where id = #{id}")
+    Setmeal getById(Long id);
 }
