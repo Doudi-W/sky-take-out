@@ -2,10 +2,15 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
+import com.sky.exception.SetmealEnableFailedException;
+import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
@@ -26,6 +31,8 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private DishMapper dishMapper;
     /**
      * 分页查询套餐列表
      * @param setmealPageQueryDTO
@@ -51,6 +58,8 @@ public class SetmealServiceImpl implements SetmealService {
     public void save(SetmealDTO setmealDTO) {
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO, setmeal);
+        //设置默认状态为停售
+        setmeal.setStatus(StatusConstant.DISABLE);
         setmealMapper.insert(setmeal);
 
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
@@ -75,6 +84,14 @@ public class SetmealServiceImpl implements SetmealService {
                 .status(status)
                 .id(id)
                 .build();
+        List<Long> dishesId= setmealDishMapper.getDishIdBySetmealId(id);
+        for (Long dishId : dishesId) {
+            Dish dish = dishMapper.getById(dishId);
+            if (dish.getStatus() == 0){
+                //抛“套餐内包含未启售菜品，无法启售”
+                throw new SetmealEnableFailedException(MessageConstant.SETMEAL_ENABLE_FAILED);
+            }
+        }
         setmealMapper.update(setmeal);
     }
 
@@ -121,4 +138,22 @@ public class SetmealServiceImpl implements SetmealService {
         }
 
     }
+
+    /**
+     * 根据id删除套餐
+     * @param ids
+     */
+    /*@Transactional
+    @Override
+    public void delete(List<Long> ids) {
+        for (Long id : ids){
+            Setmeal setmeal = setmealMapper.getById(id);
+            if(setmeal.getStatus() == 1){
+                throw new RuntimeException(MessageConstant.SETMEAL_ON_SALE);
+            }
+        }
+
+        setmealMapper.deleteBatchIds(ids);
+        setmealDishMapper.deleteBySetmealIds(ids);
+    }*/
 }
