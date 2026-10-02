@@ -18,5 +18,5 @@ public interface SetmealService {
 
     void update(SetmealDTO setmealDTO);
 
-//    void delete(List<Long> ids);
+    void delete(List<Long> ids);
 }
